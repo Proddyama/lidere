@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lidere — Gestão Inteligente para o Varejo Alimentar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green-deep:  #0a2e1a;
+      --green-mid:   #165c30;
+      --green-bright:#22a256;
+      --green-light: #4fcf7e;
+      --gold:        #f5c542;
+      --gold-dark:   #c9a020;
+      --cream:       #f7f3eb;
+      --white:       #ffffff;
+      --dark:        #0d0d0d;
+      --gray:        #6b7280;
+      --border:      rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5vw;
+      background: rgba(10,10,10,0.7);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 4px;
+      color: var(--green-light);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Syne', sans-serif; font-weight: 500;
+      font-size: .85rem; letter-spacing: 1.5px;
+      color: rgba(255,255,255,.7); text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green-light); }
+    .nav-cta {
+      background: var(--green-bright);
+      color: var(--white) !important;
+      padding: .5rem 1.3rem;
+      border-radius: 2rem;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--green-light) !important; color: var(--dark) !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 75% 50%, rgba(22,92,48,.55) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(34,162,86,.15) 0%, transparent 60%),
+        linear-gradient(135deg, #0d0d0d 0%, #0a2e1a 100%);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(79,207,126,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,207,126,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(79,207,126,.12);
+      border: 1px solid rgba(79,207,126,.3);
+      color: var(--green-light);
+      font-family: 'Syne', sans-serif;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.8rem;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--green-light);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: .95;
+      letter-spacing: 2px;
+      margin-bottom: 1.6rem;
+      animation: fadeUp .9s .1s ease both;
+    }
+    h1 .accent { color: var(--green-light); }
+    h1 .gold   { color: var(--gold); }
+
+    .hero-desc {
+      font-size: 1.05rem; line-height: 1.75;
+      color: rgba(255,255,255,.65);
+      max-width: 480px;
+      margin-bottom: 2.4rem;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 1s .3s ease both;
+    }
+    .btn-primary {
+      background: var(--green-bright);
+      color: var(--white);
+      padding: .85rem 2rem;
+      border-radius: 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .9rem;
+      text-decoration: none; letter-spacing: 1px;
+      transition: all .25s;
+      box-shadow: 0 0 30px rgba(34,162,86,.4);
+    }
+    .btn-primary:hover {
+      background: var(--green-light);
+      color: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(79,207,126,.5);
+    }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.25);
+      color: var(--white);
+      padding: .85rem 2rem;
+      border-radius: 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600; font-size: .9rem;
+      text-decoration: none; letter-spacing: 1px;
+      transition: all .25s;
+    }
+    .btn-outline:hover {
+      border-color: var(--green-light);
+      color: var(--green-light);
+    }
+
+    /* Hero Right — floating cards */
+    .hero-visual {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: center;
+      height: 520px;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .card-float {
+      position: absolute;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      border-radius: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .card-main {
+      width: 300px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(22,92,48,.35);
+      border-color: rgba(79,207,126,.25);
+    }
+    .card-main .c-title {
+      font-family: 'Syne', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--green-light); margin-bottom: 1rem;
+    }
+    .card-main .c-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; color: var(--white);
+      line-height: 1;
+    }
+    .card-main .c-sub { font-size: .8rem; color: rgba(255,255,255,.5); margin-top: .3rem; }
+    .bar-wrap { margin-top: 1rem; }
+    .bar-label { font-size: .72rem; color: rgba(255,255,255,.5); margin-bottom: .35rem; display: flex; justify-content: space-between; }
+    .bar { height: 6px; background: rgba(255,255,255,.1); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--green-bright), var(--green-light)); animation: barGrow 1.5s .8s ease both; transform-origin: left; }
+    @keyframes barGrow { from{width:0} }
+
+    .card-sm1 { width: 180px; top: 15%; right: 6%; animation: float1 5s ease-in-out infinite; }
+    .card-sm2 { width: 170px; bottom: 12%; left: 8%; animation: float2 6s ease-in-out infinite; }
+    .card-sm3 { width: 155px; top: 55%; right: 2%; animation: float3 4.5s ease-in-out infinite; }
+
+    @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+    @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .card-sm .cs-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+    .card-sm .cs-title { font-family: 'Syne', sans-serif; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--green-light); }
+    .card-sm .cs-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); }
+    .card-sm .cs-trend { font-size: .72rem; color: #4fcf7e; }
+
+    /* ─── STATS ─── */
+    #stats {
+      background: var(--green-deep);
+      border-top: 1px solid rgba(79,207,126,.15);
+      border-bottom: 1px solid rgba(79,207,126,.15);
+      padding: 3rem 5vw;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px;
+    }
+    .stat-item {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute; left: 0; top: 20%; bottom: 20%;
+      width: 1px; background: rgba(79,207,126,.2);
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem; line-height: 1;
+      color: var(--green-light);
+    }
+    .stat-num span { color: var(--gold); }
+    .stat-label {
+      font-size: .8rem; color: rgba(255,255,255,.55);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      font-family: 'Syne', sans-serif; font-weight: 500;
+      margin-top: .4rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #sobre {
+      padding: 8rem 5vw;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .sobre-badge {
+      display: inline-block;
+      background: rgba(245,197,66,.1);
+      border: 1px solid rgba(245,197,66,.3);
+      color: var(--gold);
+      font-family: 'Syne', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.4rem;
+    }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 1.4rem;
+    }
+    .text-green { color: var(--green-light); }
+    .text-gold  { color: var(--gold); }
+
+    p.lead {
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1.2rem;
+    }
+    .sobre-features { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 2rem; }
+    .sobre-feat {
+      display: flex; align-items: center; gap: .7rem;
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 600;
+      color: rgba(255,255,255,.8);
+    }
+    .sobre-feat::before {
+      content: '✓'; width: 24px; height: 24px;
+      background: rgba(79,207,126,.15);
+      border: 1px solid rgba(79,207,126,.3);
+      color: var(--green-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; flex-shrink: 0;
+    }
+
+    .sobre-img-wrap {
+      position: relative;
+      height: 460px;
+    }
+    .sobre-card-big {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(22,92,48,.5), rgba(10,46,26,.8));
+      border: 1px solid rgba(79,207,126,.2);
+      border-radius: 2rem;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      overflow: hidden;
+    }
+    .sobre-card-big::before {
+      content: '';
+      position: absolute; top: -40%; right: -20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(79,207,126,.2), transparent 70%);
+      border-radius: 50%;
+    }
+    .sobre-icon-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1rem; margin-bottom: 2rem; position: relative; z-index: 1;
+    }
+    .s-icon {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 1rem;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all .25s;
+    }
+    .s-icon:hover { background: rgba(79,207,126,.15); border-color: rgba(79,207,126,.4); transform: translateY(-4px); }
+    .s-icon .si-e { font-size: 1.8rem; display: block; margin-bottom: .4rem; }
+    .s-icon .si-l { font-size: .68rem; font-family: 'Syne', sans-serif; font-weight: 600; color: rgba(255,255,255,.6); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ─── SOLUTIONS ─── */
+    #solucoes {
+      padding: 8rem 5vw;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--green-deep) 100%);
+    }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header .badge {
+      display: inline-block;
+      background: rgba(79,207,126,.1);
+      border: 1px solid rgba(79,207,126,.3);
+      color: var(--green-light);
+      font-family: 'Syne', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .section-header p { color: rgba(255,255,255,.55); font-size: 1rem; max-width: 520px; margin: .8rem auto 0; line-height: 1.7; }
+
+    .solutions-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .sol-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1.6rem;
+      padding: 2.2rem;
+      position: relative; overflow: hidden;
+      transition: all .3s;
+      cursor: default;
+    }
+    .sol-card::before {
+      content: '';
+      position: absolute; bottom: -60px; right: -60px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow-color, rgba(79,207,126,.15)), transparent 70%);
+      transition: all .4s;
+    }
+    .sol-card:hover { border-color: rgba(79,207,126,.3); transform: translateY(-6px); background: rgba(22,92,48,.15); }
+    .sol-card:hover::before { transform: scale(1.4); }
+
+    .sol-icon {
+      width: 52px; height: 52px;
+      background: rgba(79,207,126,.1);
+      border: 1px solid rgba(79,207,126,.25);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.4rem;
+    }
+    .sol-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: .8rem;
+      color: var(--white);
+    }
+    .sol-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); }
+    .sol-tag {
+      margin-top: 1.4rem;
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: 'Syne', sans-serif; font-size: .7rem;
+      font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green-light);
+    }
+    .sol-tag svg { width: 12px; height: 12px; }
+
+    /* ─── FEATURES ─── */
+    #funcionalidades {
+      padding: 8rem 5vw;
+      background: var(--dark);
+    }
+    .feat-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; }
+    .feat-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .feat-item {
+      display: flex; gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      border-radius: 1.2rem;
+      border: 1px solid transparent;
+      cursor: pointer; transition: all .25s;
+    }
+    .feat-item:hover, .feat-item.active {
+      background: rgba(22,92,48,.2);
+      border-color: rgba(79,207,126,.25);
+    }
+    .feat-item .fi-icon {
+      width: 46px; height: 46px;
+      background: rgba(79,207,126,.1);
+      border: 1px solid rgba(79,207,126,.2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .feat-item .fi-text h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: .95rem; font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .feat-item .fi-text p { font-size: .82rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+    .feat-visual {
+      background: rgba(22,92,48,.2);
+      border: 1px solid rgba(79,207,126,.2);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      position: relative; overflow: hidden;
+      min-height: 420px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .feat-visual::before {
+      content: '';
+      position: absolute; top: -30%; left: -20%;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(79,207,126,.18), transparent 70%);
+      border-radius: 50%;
+    }
+    .fv-screen {
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .fv-row { display: flex; justify-content: space-between; align-items: center; padding: .6rem 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .fv-row:last-child { border: none; }
+    .fv-row span:first-child { font-size: .82rem; color: rgba(255,255,255,.6); }
+    .fv-row span:last-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem; }
+    .fv-badge-green { color: var(--green-light); }
+    .fv-badge-gold  { color: var(--gold); }
+    .fv-badge-white { color: var(--white); }
+    .fv-title { font-family: 'Syne', sans-serif; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--green-light); margin-bottom: .8rem; }
+
+    /* ─── SECTORS ─── */
+    #setores {
+      padding: 8rem 5vw;
+      background: var(--green-deep);
+    }
+    .sectors-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .sector-card {
+      border-radius: 1.8rem;
+      padding: 2.4rem 2rem;
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      transition: all .3s;
+    }
+    .sector-card:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+    .sc-1 { background: linear-gradient(135deg, #0f3d1f, #1a6b35); }
+    .sc-2 { background: linear-gradient(135deg, #2d1a00, #7a4a00); }
+    .sc-3 { background: linear-gradient(135deg, #1a0a0a, #5c1515); }
+    .sc-4 { background: linear-gradient(135deg, #0a1a3d, #153066); }
+    .sector-card .se { font-size: 3rem; margin-bottom: 1.2rem; display: block; }
+    .sector-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 1.5px;
+      margin-bottom: .8rem;
+    }
+    .sector-card p { font-size: .83rem; line-height: 1.65; color: rgba(255,255,255,.6); }
+    .sector-card .tags { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sector-card .tag-pill {
+      font-size: .68rem; font-family: 'Syne', sans-serif; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: .25rem .7rem; border-radius: 2rem;
+      background: rgba(255,255,255,.1); color: rgba(255,255,255,.8);
+    }
+
+    /* ─── SOFTWARE ─── */
+    #software {
+      padding: 8rem 5vw;
+      background: var(--dark);
+    }
+    .software-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .sw-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .sw-feat {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem 1.4rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 1rem;
+      transition: all .25s;
+    }
+    .sw-feat:hover { background: rgba(22,92,48,.2); border-color: rgba(79,207,126,.25); }
+    .sw-feat .sf-dot {
+      width: 8px; height: 8px;
+      background: var(--green-bright);
+      border-radius: 50%; margin-top: .4rem; flex-shrink: 0;
+    }
+    .sw-feat h4 { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700; margin-bottom: .2rem; }
+    .sw-feat p { font-size: .8rem; color: rgba(255,255,255,.5); }
+
+    .sw-dashboard {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 2rem;
+      overflow: hidden;
+    }
+    .sw-top-bar {
+      background: rgba(22,92,48,.3);
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center; gap: .6rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .sw-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sw-dot-r { background: #ff5f57; }
+    .sw-dot-y { background: #febc2e; }
+    .sw-dot-g { background: #28c840; }
+    .sw-title-bar {
+      font-family: 'Syne', sans-serif; font-size: .75rem;
+      font-weight: 600; color: rgba(255,255,255,.5);
+      margin-left: .5rem; letter-spacing: 1px;
+    }
+    .sw-body { padding: 1.5rem; }
+    .sw-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem; margin-bottom: 1.2rem; }
+    .sw-metric {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: .8rem;
+      padding: 1rem;
+    }
+    .sw-metric .m-l { font-size: .65rem; font-family: 'Syne', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,.4); margin-bottom: .4rem; }
+    .sw-metric .m-v { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; }
+    .sw-metric .m-t { font-size: .68rem; }
+    .up { color: var(--green-light); }
+    .dn { color: #f87171; }
+
+    .sw-chart-area { position: relative; height: 100px; margin-bottom: 1.2rem; }
+    .sw-chart-svg { width: 100%; height: 100%; }
+
+    .sw-table-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .55rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .78rem;
+    }
+    .sw-table-row:last-child { border: none; }
+    .sw-table-row .tr-name { color: rgba(255,255,255,.7); }
+    .sw-table-row .tr-val { font-family: 'Syne', sans-serif; font-weight: 700; }
+
+    /* ─── PRECIFICAÇÃO ─── */
+    #precificacao {
+      padding: 8rem 5vw;
+      background: linear-gradient(180deg, var(--dark), var(--green-deep));
+    }
+    .pricing-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: center; }
+    .pricing-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .price-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1.4rem;
+      padding: 1.8rem 2rem;
+      display: flex; align-items: center; gap: 1.4rem;
+      transition: all .3s;
+    }
+    .price-card:hover { background: rgba(22,92,48,.2); border-color: rgba(79,207,126,.3); transform: translateX(8px); }
+    .price-card .pc-icon {
+      font-size: 2.2rem; flex-shrink: 0;
+      width: 60px; height: 60px;
+      background: rgba(79,207,126,.1);
+      border: 1px solid rgba(79,207,126,.2);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .price-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
+    .price-card p { font-size: .82rem; color: rgba(255,255,255,.5); line-height: 1.5; }
+
+    .pricing-visual {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 2rem;
+      padding: 2.5rem;
+    }
+    .pv-header { margin-bottom: 1.8rem; }
+    .pv-header h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .3rem; }
+    .pv-header p { font-size: .8rem; color: rgba(255,255,255,.5); }
+    .pv-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .pv-item:last-child { border: none; }
+    .pv-item .pvi-icon { font-size: 1.2rem; width: 36px; text-align: center; }
+    .pv-item .pvi-info { flex: 1; }
+    .pv-item .pvi-info .pi-name { font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 600; }
+    .pv-item .pvi-info .pi-cat { font-size: .72rem; color: rgba(255,255,255,.4); }
+    .pv-item .pvi-price { text-align: right; }
+    .pv-item .pvi-price .pp-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--green-light); }
+    .pv-item .pvi-price .pp-mrg { font-size: .68rem; color: var(--gold); font-family: 'Syne', sans-serif; }
+
+    /* ─── TESTIMONIALS ─── */
+    #depoimentos {
+      padding: 8rem 5vw;
+      background: var(--green-deep);
+    }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .testi-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1.6rem;
+      padding: 2rem;
+      transition: all .3s;
+    }
+    .testi-card:hover { border-color: rgba(79,207,126,.3); transform: translateY(-4px); }
+    .testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: 1.1rem; }
+    .testi-text { font-size: .9rem; line-height: 1.75; color: rgba(255,255,255,.7); margin-bottom: 1.5rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: .9rem; }
+    .testi-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-bright));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+    }
+    .testi-author .ta-name { font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700; }
+    .testi-author .ta-role { font-size: .75rem; color: rgba(255,255,255,.45); }
+
+    /* ─── CTA ─── */
+    #contato {
+      padding: 8rem 5vw;
+      background: var(--dark);
+      text-align: center;
+    }
+    .cta-box {
+      max-width: 720px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(22,92,48,.5), rgba(10,46,26,.7));
+      border: 1px solid rgba(79,207,126,.25);
+      border-radius: 2.5rem;
+      padding: 5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse, rgba(79,207,126,.2), transparent 70%);
+    }
+    .cta-box h2 { position: relative; z-index: 1; margin-bottom: 1rem; }
+    .cta-box p { position: relative; z-index: 1; color: rgba(255,255,255,.6); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .cta-box .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+    .contact-strip {
+      display: flex; justify-content: center; gap: 3rem;
+      margin-top: 4rem; flex-wrap: wrap;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .9rem; color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-item:hover { color: var(--green-light); }
+    .contact-item .ci-icon {
+      width: 38px; height: 38px;
+      background: rgba(79,207,126,.1);
+      border: 1px solid rgba(79,207,126,.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--green-deep);
+      border-top: 1px solid rgba(79,207,126,.15);
+      padding: 3rem 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    footer .f-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 4px;
+      color: var(--green-light);
+    }
+    footer .f-logo span { color: var(--gold); }
+    footer p { font-size: .8rem; color: rgba(255,255,255,.4); }
+    footer .f-links { display: flex; gap: 1.5rem; }
+    footer .f-links a {
+      font-size: .8rem; color: rgba(255,255,255,.45);
+      text-decoration: none; font-family: 'Syne', sans-serif;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    footer .f-links a:hover { color: var(--green-light); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .hero-visual { display: none; }
+      #stats { grid-template-columns: repeat(2,1fr); }
+      #sobre, .feat-layout, .software-layout, .pricing-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .sobre-img-wrap { height: 340px; }
+      .solutions-grid, .sectors-grid, .testi-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .solutions-grid, .sectors-grid, .testi-grid { grid-template-columns: 1fr; }
+      #stats { grid-template-columns: repeat(2,1fr); }
+      .stat-item + .stat-item::before { display: none; }
+      .cta-box { padding: 3rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">LIDE<span>RE</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#solucoes">Soluções</a></li>
+    <li><a href="#software">Software</a></li>
+    <li><a href="#setores">Setores</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Gestão para o Varejo Alimentar</div>
+    <h1>
+      GESTÃO QUE<br>
+      <span class="accent">TRANSFORMA</span><br>
+      SEU <span class="gold">NEGÓCIO</span>
+    </h1>
+    <p class="hero-desc">
+      Software e consultoria especializados para hortifruti, padaria e açougue.
+      Controle de custos, precificação inteligente e gestão completa em um único sistema.
+    </p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-primary">Solicitar Demonstração</a>
+      <a href="#solucoes" class="btn-outline">Conheça as Soluções</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="card-float card-main">
+      <div class="c-title">Faturamento do Mês</div>
+      <div class="c-value">R$ 48.720</div>
+      <div class="c-sub">↑ 18% comparado ao mês anterior</div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Meta mensal</span><span>82%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:82%"></div></div>
+      </div>
+      <div class="bar-wrap" style="margin-top:.7rem">
+        <div class="bar-label"><span>Margem média</span><span>34%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:34%;background:linear-gradient(90deg,#f5c542,#fedb6a)"></div></div>
+      </div>
+    </div>
+    <div class="card-float card-sm card-sm1">
+      <div class="cs-icon">🥦</div>
+      <div class="cs-title">Hortifruti</div>
+      <div class="cs-val">R$ 12.4K</div>
+      <div class="cs-trend">↑ 22% hoje</div>
+    </div>
+    <div class="card-float card-sm card-sm2">
+      <div class="cs-icon">🥩</div>
+      <div class="cs-title">Açougue</div>
+      <div class="cs-val">R$ 8.9K</div>
+      <div class="cs-trend">↑ 15% hoje</div>
+    </div>
+    <div class="card-float card-sm card-sm3">
+      <div class="cs-icon">🍞</div>
+      <div class="cs-title">Padaria</div>
+      <div class="cs-val">R$ 6.2K</div>
+      <div class="cs-trend">↑ 9% hoje</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">500<span>+</span></div>
+    <div class="stat-label">Clientes Ativos</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">12<span>%</span></div>
+    <div class="stat-label">Redução de Perdas Média</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">98<span>%</span></div>
+    <div class="stat-label">Satisfação dos Clientes</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">8<span>x</span></div>
+    <div class="stat-label">Retorno sobre o Investimento</div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-content reveal">
+    <div class="sobre-badge">Quem Somos</div>
+    <h2>ESPECIALISTAS NO <span class="text-green">VAREJO</span> <span class="text-gold">ALIMENTAR</span></h2>
+    <p class="lead">
+      A Lidere nasceu para resolver os problemas reais do varejista brasileiro. Combinamos tecnologia de ponta com consultoria especializada para que sua empresa opere com máxima eficiência.
+    </p>
+    <p class="lead">
+      Da precificação inteligente ao controle de estoque, do hortifruti ao açougue — temos a solução certa para cada desafio do seu negócio.
+    </p>
+    <div class="sobre-features">
+      <div class="sobre-feat">Precificação Automática</div>
+      <div class="sobre-feat">Controle de Perdas</div>
+      <div class="sobre-feat">Gestão de Estoque</div>
+      <div class="sobre-feat">Relatórios em Tempo Real</div>
+      <div class="sobre-feat">Consultoria Especializada</div>
+      <div class="sobre-feat">Suporte Dedicado</div>
+    </div>
+  </div>
+  <div class="sobre-img-wrap reveal">
+    <div class="sobre-card-big">
+      <div class="sobre-icon-grid">
+        <div class="s-icon"><span class="si-e">📊</span><span class="si-l">Gestão</span></div>
+        <div class="s-icon"><span class="si-e">🎯</span><span class="si-l">Controle</span></div>
+        <div class="s-icon"><span class="si-e">💼</span><span class="si-l">Consultoria</span></div>
+        <div class="s-icon"><span class="si-e">💻</span><span class="si-l">Software</span></div>
+        <div class="s-icon"><span class="si-e">💰</span><span class="si-l">Preço</span></div>
+        <div class="s-icon"><span class="si-e">📦</span><span class="si-l">Estoque</span></div>
+      </div>
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;margin-bottom:.3rem">LIDERE</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.5);font-family:'Syne',sans-serif">Tecnologia + Consultoria para o Varejo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solucoes">
+  <div class="section-header reveal">
+    <div class="badge">Nossas Soluções</div>
+    <h2>TUDO QUE SEU NEGÓCIO <span class="text-green">PRECISA</span></h2>
+    <p>Soluções completas e integradas para gestão, controle e crescimento do seu varejo alimentar.</p>
+  </div>
+  <div class="solutions-grid">
+    <div class="sol-card reveal" style="--glow-color:rgba(79,207,126,.2)">
+      <div class="sol-icon">📊</div>
+      <h3>Gestão Completa</h3>
+      <p>Centralização total das operações: vendas, compras, financeiro e estoque em um único painel. Visão 360° do seu negócio com dados em tempo real.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+    <div class="sol-card reveal" style="--glow-color:rgba(245,197,66,.2)">
+      <div class="sol-icon">🎯</div>
+      <h3>Controle de Perdas</h3>
+      <p>Monitore perdas no hortifruti, açougue e padaria com alertas automáticos. Reduza o desperdício e aumente a rentabilidade com insights precisos.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+    <div class="sol-card reveal" style="--glow-color:rgba(79,207,126,.2)">
+      <div class="sol-icon">💼</div>
+      <h3>Consultoria Especializada</h3>
+      <p>Nossa equipe de especialistas analisa seu negócio e entrega um plano de ação personalizado para melhorar margens, processos e resultados.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+    <div class="sol-card reveal" style="--glow-color:rgba(79,207,126,.25)">
+      <div class="sol-icon">💻</div>
+      <h3>Software para Varejo</h3>
+      <p>Sistema moderno, rápido e intuitivo, desenvolvido especificamente para hortifruti, padaria e açougue. Integração com PDV, balança e fiscal.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+    <div class="sol-card reveal" style="--glow-color:rgba(245,197,66,.2)">
+      <div class="sol-icon">💰</div>
+      <h3>Precificação Inteligente</h3>
+      <p>Calcule o preço ideal automaticamente com base em custos, margem desejada, concorrência e sazonalidade. Nunca mais venda no prejuízo.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+    <div class="sol-card reveal" style="--glow-color:rgba(79,207,126,.2)">
+      <div class="sol-icon">📦</div>
+      <h3>Estoque & Compras</h3>
+      <p>Controle de estoque mínimo e máximo, curva ABC de produtos, pedidos automáticos e gestão de fornecedores. Zero ruptura, zero excesso.</p>
+      <div class="sol-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Saiba mais
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="funcionalidades">
+  <div class="feat-layout">
+    <div>
+      <div class="sobre-badge">Funcionalidades</div>
+      <h2 style="margin-bottom:2rem">RECURSOS QUE <span class="text-green">FAZEM A</span> <span class="text-gold">DIFERENÇA</span></h2>
+      <div class="feat-list">
+        <div class="feat-item active reveal">
+          <div class="fi-icon">📈</div>
+          <div class="fi-text">
+            <h4>Dashboard em Tempo Real</h4>
+            <p>Acompanhe vendas, margem, ticket médio e perdas ao vivo, a qualquer hora, de qualquer lugar.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <div class="fi-icon">⚖️</div>
+          <div class="fi-text">
+            <h4>Integração com Balanças</h4>
+            <p>Conecte diretamente com suas balanças digitais. Precificação automática por peso.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <div class="fi-icon">🔔</div>
+          <div class="fi-text">
+            <h4>Alertas Automáticos</h4>
+            <p>Receba notificações de estoque baixo, produtos vencendo e variações de margem pelo WhatsApp.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <div class="fi-icon">📱</div>
+          <div class="fi-text">
+            <h4>Acesso Mobile</h4>
+            <p>Gerencie seu negócio pelo celular. App disponível para iOS e Android com todos os recursos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-visual reveal">
+      <div class="fv-screen">
+        <div class="fv-title">📊 Resumo do Dia</div>
+        <div class="fv-row"><span>Total em Vendas</span><span class="fv-badge-green">R$ 4.280,00</span></div>
+        <div class="fv-row"><span>Margem Média</span><span class="fv-badge-gold">32,4%</span></div>
+        <div class="fv-row"><span>Ticket Médio</span><span class="fv-badge-white">R$ 48,20</span></div>
+        <div class="fv-row"><span>Perdas do Dia</span><span style="color:#f87171">R$ 128,00</span></div>
+        <div class="fv-row"><span>Produtos Vendidos</span><span class="fv-badge-white">89</span></div>
+      </div>
+      <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:1rem;padding:1.2rem;position:relative;z-index:1">
+        <div class="fv-title">🔔 Alertas Ativos</div>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <div style="display:flex;align-items:center;gap:.7rem;font-size:.8rem">
+            <span>⚠️</span><span style="color:rgba(255,255,255,.7)">Alface — estoque abaixo do mínimo</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.7rem;font-size:.8rem">
+            <span>📅</span><span style="color:rgba(255,255,255,.7)">Frango — vence em 2 dias (8kg)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.7rem;font-size:.8rem">
+            <span>💰</span><span style="color:rgba(255,255,255,.7)">Pão francês — margem abaixo de 20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETORES -->
+<section id="setores">
+  <div class="section-header reveal">
+    <div class="badge">Segmentos</div>
+    <h2>SOLUÇÕES PARA <span class="text-gold">CADA SETOR</span></h2>
+    <p>Desenvolvemos módulos específicos para as necessidades de cada segmento do varejo alimentar.</p>
+  </div>
+  <div class="sectors-grid">
+    <div class="sector-card sc-1 reveal">
+      <span class="se">🥦</span>
+      <h3>HORTIFRUTI</h3>
+      <p>Controle de perecíveis, precificação por kg, gestão de perdas diárias, curva de validade e compras inteligentes por sazonalidade.</p>
+      <div class="tags">
+        <span class="tag-pill">Perecíveis</span>
+        <span class="tag-pill">Perdas</span>
+        <span class="tag-pill">Sazonalidade</span>
+      </div>
+    </div>
+    <div class="sector-card sc-2 reveal">
+      <span class="se">🍞</span>
+      <h3>PADARIA</h3>
+      <p>Fichas técnicas de produção, custo de receitas, controle de insumos, programação de fornadas e margem por produto.</p>
+      <div class="tags">
+        <span class="tag-pill">Fichas Técnicas</span>
+        <span class="tag-pill">Produção</span>
+        <span class="tag-pill">Insumos</span>
+      </div>
+    </div>
+    <div class="sector-card sc-3 reveal">
+      <span class="se">🥩</span>
+      <h3>AÇOUGUE</h3>
+      <p>Controle de desossa, aproveitamento de carcaça, precificação por corte, rastreabilidade e integração com balança de checkout.</p>
+      <div class="tags">
+        <span class="tag-pill">Desossa</span>
+        <span class="tag-pill">Rastreabilidade</span>
+        <span class="tag-pill">Cortes</span>
+      </div>
+    </div>
+    <div class="sector-card sc-4 reveal">
+      <span class="se">🏪</span>
+      <h3>VAREJO GERAL</h3>
+      <p>Gestão de gondola, mix de produtos, controle de devolução, precificação competitiva e análise de rentabilidade por categoria.</p>
+      <div class="tags">
+        <span class="tag-pill">Mix</span>
+        <span class="tag-pill">Rentabilidade</span>
+        <span class="tag-pill">Categorias</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFTWARE -->
+<section id="software">
+  <div class="software-layout">
+    <div>
+      <div class="sobre-badge">O Sistema</div>
+      <h2>SOFTWARE PENSADO <span class="text-green">PARA VOCÊ</span></h2>
+      <p class="lead">Desenvolvido 100% para o varejo alimentar brasileiro. Simples de usar, poderoso nos resultados.</p>
+      <div class="sw-features">
+        <div class="sw-feat reveal">
+          <div class="sf-dot"></div>
+          <div><h4>PDV Integrado</h4><p>Frente de caixa rápida com integração fiscal (NFC-e / SAT) e múltiplas formas de pagamento.</p></div>
+        </div>
+        <div class="sw-feat reveal">
+          <div class="sf-dot"></div>
+          <div><h4>Multi-loja</h4><p>Gerencie várias unidades em um único painel. Comparativos entre filiais em tempo real.</p></div>
+        </div>
+        <div class="sw-feat reveal">
+          <div class="sf-dot"></div>
+          <div><h4>BI & Relatórios</h4><p>Relatórios completos: DRE, curva ABC, evolução de margem, ranking de produtos e muito mais.</p></div>
+        </div>
+        <div class="sw-feat reveal">
+          <div class="sf-dot"></div>
+          <div><h4>Nuvem 100% Segura</h4><p>Dados salvos na nuvem com backup automático. Acesse de qualquer dispositivo, 24 horas por dia.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="sw-dashboard reveal">
+      <div class="sw-top-bar">
+        <div class="sw-dot sw-dot-r"></div>
+        <div class="sw-dot sw-dot-y"></div>
+        <div class="sw-dot sw-dot-g"></div>
+        <span class="sw-title-bar">LIDERE — Dashboard Principal</span>
+      </div>
+      <div class="sw-body">
+        <div class="sw-metrics">
+          <div class="sw-metric">
+            <div class="m-l">Faturamento</div>
+            <div class="m-v">48.7K</div>
+            <div class="m-t up">↑ 18%</div>
+          </div>
+          <div class="sw-metric">
+            <div class="m-l">Margem</div>
+            <div class="m-v">34%</div>
+            <div class="m-t up">↑ 2pp</div>
+          </div>
+          <div class="sw-metric">
+            <div class="m-l">Perdas</div>
+            <div class="m-v">1.2%</div>
+            <div class="m-t dn">↓ 0.3%</div>
+          </div>
+        </div>
+        <div class="sw-chart-area">
+          <svg class="sw-chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#22a256" stop-opacity=".4"/>
+                <stop offset="100%" stop-color="#22a256" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 80 C40 75, 60 60, 80 55 S120 40, 150 35 S200 25, 230 30 S280 20, 310 15 S370 10, 400 5" fill="none" stroke="#22a256" stroke-width="2"/>
+            <path d="M0 80 C40 75, 60 60, 80 55 S120 40, 150 35 S200 25, 230 30 S280 20, 310 15 S370 10, 400 5 L400 100 L0 100 Z" fill="url(#g1)"/>
+          </svg>
+        </div>
+        <div>
+          <div class="sw-table-row"><span class="tr-name">🥦 Hortifruti</span><span class="tr-val up">R$ 12.480</span></div>
+          <div class="sw-table-row"><span class="tr-name">🍞 Padaria</span><span class="tr-val up">R$ 9.320</span></div>
+          <div class="sw-table-row"><span class="tr-name">🥩 Açougue</span><span class="tr-val up">R$ 15.900</span></div>
+          <div class="sw-table-row"><span class="tr-name">🏪 Mercearia</span><span class="tr-val">R$ 11.000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIFICAÇÃO -->
+<section id="precificacao">
+  <div class="pricing-layout">
+    <div>
+      <div class="sobre-badge">Precificação</div>
+      <h2>PRECIFIQUE COM <span class="text-green">INTELIGÊNCIA</span> E <span class="text-gold">PRECISÃO</span></h2>
+      <p class="lead">Chega de achismo. Nossa engine de precificação calcula o preço ideal para cada produto considerando todos os seus custos e a margem que você precisa.</p>
+      <div class="pricing-cards">
+        <div class="price-card reveal">
+          <div class="pc-icon">📥</div>
+          <div><h4>Custo de Aquisição</h4><p>Inclui nota fiscal, frete, impostos e outros custos para o preço real de compra.</p></div>
+        </div>
+        <div class="price-card reveal">
+          <div class="pc-icon">⚙️</div>
+          <div><h4>Custos Operacionais</h4><p>Rateio automático de energia, mão de obra, aluguel e outros custos fixos por produto.</p></div>
+        </div>
+        <div class="price-card reveal">
+          <div class="pc-icon">📊</div>
+          <div><h4>Margem Desejada</h4><p>Defina a margem que você precisa e o sistema calcula o preço mínimo de venda.</p></div>
+        </div>
+        <div class="price-card reveal">
+          <div class="pc-icon">🏷️</div>
+          <div><h4>Geração de Etiquetas</h4><p>Imprima etiquetas de preço diretamente do sistema com código de barras.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-visual reveal">
+      <div class="pv-header">
+        <h3>💰 Calculadora de Preços</h3>
+        <p>Resultados automáticos baseados nos seus custos</p>
+      </div>
+      <div class="pv-item">
+        <div class="pvi-icon">🥦</div>
+        <div class="pvi-info"><div class="pi-name">Alface Crespa (un)</div><div class="pi-cat">Hortifruti • Perecível</div></div>
+        <div class="pvi-price"><div class="pp-val">R$ 3,49</div><div class="pp-mrg">Margem: 38%</div></div>
+      </div>
+      <div class="pv-item">
+        <div class="pvi-icon">🥩</div>
+        <div class="pvi-info"><div class="pi-name">Fraldinha (kg)</div><div class="pi-cat">Açougue • Carne Bovina</div></div>
+        <div class="pvi-price"><div class="pp-val">R$ 68,90</div><div class="pp-mrg">Margem: 28%</div></div>
+      </div>
+      <div class="pv-item">
+        <div class="pvi-icon">🍞</div>
+        <div class="pvi-info"><div class="pi-name">Pão Francês (kg)</div><div class="pi-cat">Padaria • Produção Própria</div></div>
+        <div class="pvi-price"><div class="pp-val">R$ 18,90</div><div class="pp-mrg">Margem: 55%</div></div>
+      </div>
+      <div class="pv-item">
+        <div class="pvi-icon">🍗</div>
+        <div class="pvi-info"><div class="pi-name">Frango Inteiro (kg)</div><div class="pi-cat">Açougue • Aves</div></div>
+        <div class="pvi-price"><div class="pp-val">R$ 14,90</div><div class="pp-mrg">Margem: 32%</div></div>
+      </div>
+      <div class="pv-item">
+        <div class="pvi-icon">🍅</div>
+        <div class="pvi-info"><div class="pi-name">Tomate Caqui (kg)</div><div class="pi-cat">Hortifruti • FLV</div></div>
+        <div class="pvi-price"><div class="pp-val">R$ 8,49</div><div class="pp-mrg">Margem: 42%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="section-header reveal">
+    <div class="badge">Depoimentos</div>
+    <h2>O QUE NOSSOS <span class="text-green">CLIENTES</span> DIZEM</h2>
+    <p>Varejistas de todo o Brasil transformaram seus negócios com a Lidere.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Reduzi as perdas do meu hortifruti em 40% no primeiro trimestre. O sistema de alertas de vencimento é incrível. Hoje sei exatamente o que está vencendo antes de perder."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MC</div>
+        <div><div class="ta-name">Marcos Costa</div><div class="ta-role">Dono de Supermercado — SP</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"A precificação automática mudou minha vida. Antes eu precificava no achismo e vendia no prejuízo sem saber. Com a Lidere, minha margem subiu de 18% para 31%."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AF</div>
+        <div><div class="ta-name">Ana Ferreira</div><div class="ta-role">Proprietária de Padaria — MG</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"O controle de desossa do açougue é muito preciso. Consigo calcular o custo real de cada corte e precificar certo. O suporte da equipe é excelente, sempre resolvem tudo rápido."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RS</div>
+        <div><div class="ta-name">Roberto Santos</div><div class="ta-role">Açougueiro — RJ</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTATO -->
+<section id="contato">
+  <div class="cta-box reveal">
+    <h2>PRONTO PARA <span class="text-green">TRANSFORMAR</span> SEU <span class="text-gold">NEGÓCIO?</span></h2>
+    <p>Fale com nossa equipe agora. Demonstração gratuita, sem compromisso. Veja o sistema funcionando com os dados do seu negócio.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5500000000000" class="btn-primary">💬 Falar no WhatsApp</a>
+      <a href="mailto:contato@lidere.com.br" class="btn-outline">✉️ Enviar E-mail</a>
+    </div>
+  </div>
+  <div class="contact-strip">
+    <a href="https://wa.me/5500000000000" class="contact-item">
+      <div class="ci-icon">💬</div>
+      <div><div style="font-weight:600;color:var(--white);font-family:'Syne',sans-serif;font-size:.85rem">WhatsApp</div><div>(00) 90000-0000</div></div>
+    </a>
+    <a href="mailto:contato@lidere.com.br" class="contact-item">
+      <div class="ci-icon">✉️</div>
+      <div><div style="font-weight:600;color:var(--white);font-family:'Syne',sans-serif;font-size:.85rem">E-mail</div><div>contato@lidere.com.br</div></div>
+    </a>
+    <a href="#" class="contact-item">
+      <div class="ci-icon">📍</div>
+      <div><div style="font-weight:600;color:var(--white);font-family:'Syne',sans-serif;font-size:.85rem">Localização</div><div>Manaus, AM — Brasil</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">LIDE<span>RE</span></div>
+    <p style="margin-top:.4rem">Gestão Inteligente para o Varejo Alimentar</p>
+  </div>
+  <div class="f-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#solucoes">Soluções</a>
+    <a href="#software">Software</a>
+    <a href="#setores">Setores</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <p>© 2025 Lidere. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 60
+      ? 'rgba(10,10,10,0.95)'
+      : 'rgba(10,10,10,0.7)';
+  });
+</script>
+</body>
+</html>
